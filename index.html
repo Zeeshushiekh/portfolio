@@ -1,569 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mohammad Zeeshan — Backend Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet"/>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0A0A0F;--bg2:#0F0F16;--bgc:#13131C;--bgc2:#16161F;
-  --bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);
-  --am:#F59E0B;--amg:rgba(245,158,11,0.12);--ams:rgba(245,158,11,0.08);
-  --t1:#F0EDE8;--t2:#A8A29E;--t3:#6B7280;
-  --fd:'Fraunces',Georgia,serif;
-  --fb:'Space Grotesk',system-ui,sans-serif;
-  --fm:'Space Mono','Courier New',monospace;
-}
-html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--t1);font-family:var(--fb);line-height:1.6;overflow-x:hidden;cursor:none}
-a{text-decoration:none;color:inherit}
-ul{list-style:none}
-
-/* CURSOR */
-#cur{width:8px;height:8px;background:var(--am);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
-#curl{width:30px;height:30px;border:1.5px solid rgba(245,158,11,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s linear}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;display:flex;align-items:center;gap:40px;transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
-nav.scrolled{background:rgba(10,10,15,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--bd);padding:12px 48px}
-.logo{font-family:var(--fm);font-size:15px;margin-right:auto;letter-spacing:-.01em}
-.logo b{color:var(--am);font-weight:400}
-.nav-links{display:flex;gap:32px}
-.nav-links a{font-family:var(--fm);font-size:11px;letter-spacing:.1em;color:var(--t2);text-transform:uppercase;position:relative;transition:color .2s}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--am);transition:width .25s}
-.nav-links a:hover{color:var(--t1)}
-.nav-links a:hover::after{width:100%}
-.btn-hire{display:flex;align-items:center;gap:7px;padding:8px 20px;border:1px solid var(--am);border-radius:40px;font-family:var(--fm);font-size:11px;color:var(--am);letter-spacing:.05em;transition:background .2s,color .2s;white-space:nowrap}
-.btn-hire:hover{background:var(--am);color:var(--bg)}
-.nav-tog{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
-.nav-tog span{display:block;width:22px;height:1.5px;background:var(--t1)}
-.nav-mob{display:none;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.98);z-index:190;padding:80px 40px 40px;gap:0}
-.nav-mob.open{display:flex}
-.mob-link{padding:20px 0;font-family:var(--fd);font-size:32px;font-weight:300;color:var(--t2);border-bottom:1px solid var(--bd);transition:color .2s}
-.mob-link:hover{color:var(--t1)}
-.mob-cta{color:var(--am)!important;border-bottom:none;padding-top:32px}
-.mob-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--t1);font-size:28px;cursor:pointer;line-height:1}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:140px 48px 100px}
-.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 90% 70% at 50% 50%,black 20%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 50%,black 20%,transparent 100%);pointer-events:none}
-.h-g1{position:absolute;width:700px;height:450px;background:rgba(245,158,11,.055);border-radius:50%;filter:blur(130px);top:-5%;left:-15%;pointer-events:none}
-.h-g2{position:absolute;width:500px;height:500px;background:rgba(99,102,241,.04);border-radius:50%;filter:blur(120px);bottom:0;right:-10%;pointer-events:none}
-.hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid rgba(245,158,11,.3);border-radius:40px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--am);background:rgba(245,158,11,.06);margin-bottom:40px}
-.bdot{width:6px;height:6px;border-radius:50%;background:var(--am);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
-h1.hero-h{font-family:var(--fd);font-size:clamp(48px,6.5vw,90px);font-weight:300;line-height:1.04;letter-spacing:-.03em;color:var(--t1);margin-bottom:30px}
-.acc{font-style:italic;color:var(--am);font-weight:700}
-.hero-sub{font-size:17px;color:var(--t2);line-height:1.75;max-width:520px;margin-bottom:44px}
-.hero-sub strong{color:var(--t1);font-weight:500}
-.hero-acts{display:flex;gap:14px;margin-bottom:72px;flex-wrap:wrap}
-.btn-p{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:var(--am);color:#0A0A0F;font-weight:600;font-size:14px;border-radius:8px;transition:transform .2s,box-shadow .2s}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(245,158,11,.38)}
-.btn-s{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--bd2);color:var(--t1);font-size:14px;border-radius:8px;transition:background .2s,border-color .2s}
-.btn-s:hover{background:rgba(255,255,255,.04)}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bd);border-radius:12px;background:var(--bgc);overflow:hidden;max-width:680px}
-.stat{padding:22px 20px;text-align:center;border-right:1px solid var(--bd)}
-.stat:last-child{border-right:none}
-.sn{font-family:var(--fd);font-size:34px;font-weight:700;color:var(--am);line-height:1;letter-spacing:-.02em}
-.su{font-family:var(--fd);font-size:22px;color:var(--am);opacity:.7}
-.stat p{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-top:6px;font-family:var(--fm)}
-.h-scroll{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
-.h-scl{width:40px;height:1px;background:var(--t3);position:relative;overflow:hidden}
-.h-scl::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--am);animation:sl 2.2s infinite 1s}
-@keyframes sl{0%{left:-100%}100%{left:100%}}
-
-/* SECTION COMMONS */
-.sec{padding:110px 48px}
-.sec-dark{background:var(--bg2)}
-.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:18px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
-.ltag{color:var(--am);font-weight:700}
-h2.stitle{font-family:var(--fd);font-size:clamp(34px,4.5vw,60px);font-weight:300;line-height:1.08;letter-spacing:-.025em;color:var(--t1);margin-bottom:14px}
-.ssub{font-size:16px;color:var(--t2);margin-bottom:56px}
-.container{max-width:1100px;margin:0 auto}
-
-/* TIMELINE */
-.timeline{margin-top:56px}
-.titem{display:grid;grid-template-columns:240px 1fr;gap:56px;padding:44px 0;border-top:1px solid var(--bd)}
-.titem:last-child{border-bottom:1px solid var(--bd)}
-.tmeta{display:flex;flex-direction:column;gap:8px}
-.tper{font-family:var(--fm);font-size:11px;letter-spacing:.07em;color:var(--am);text-transform:uppercase}
-.tloc{font-size:13px;color:var(--t3)}
-.tawd{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid rgba(245,158,11,.3);border-radius:20px;font-size:11px;color:var(--am);background:var(--ams);width:fit-content;margin-top:8px}
-.tco{font-family:var(--fm);font-size:11px;color:var(--t3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
-.trole{font-family:var(--fd);font-size:26px;font-weight:300;color:var(--t1);margin-bottom:12px;letter-spacing:-.01em}
-.tsum{font-size:14px;color:var(--t2);font-weight:500;margin-bottom:20px;line-height:1.55;border-left:2px solid var(--am);padding-left:14px}
-.tbulls{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
-.tbulls li{font-size:14px;color:var(--t2);line-height:1.65;padding-left:20px;position:relative}
-.tbulls li::before{content:'—';position:absolute;left:0;color:var(--am);font-size:12px}
-.tbulls strong{color:var(--t1);font-weight:500}
-.ttags{display:flex;flex-wrap:wrap;gap:7px}
-.ttags span{padding:4px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:20px;font-size:12px;color:var(--t3);font-family:var(--fm);transition:color .2s,border-color .2s}
-.ttags span:hover{color:var(--t1);border-color:rgba(245,158,11,.3)}
-
-/* STACK */
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:18px;overflow:hidden;margin-top:56px}
-.scard{background:var(--bgc);padding:32px 28px;position:relative;overflow:hidden;transition:background .3s}
-.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--am),rgba(245,158,11,.3));transform:scaleX(0);transform-origin:left;transition:transform .35s}
-.scard:hover{background:var(--bgc2)}
-.scard:hover::before{transform:scaleX(1)}
-.sico{width:42px;height:42px;border-radius:10px;background:var(--ams);display:flex;align-items:center;justify-content:center;color:var(--am);margin-bottom:18px;font-size:20px}
-.scard h4{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--t1);margin-bottom:14px;letter-spacing:-.01em}
-.sitems{display:flex;flex-wrap:wrap;gap:6px}
-.sitems span{font-size:11px;font-family:var(--fm);color:var(--t2);padding:3px 9px;background:rgba(255,255,255,.04);border-radius:4px;border:1px solid var(--bd);transition:color .2s,border-color .2s}
-.scard:hover .sitems span{color:var(--t1);border-color:rgba(245,158,11,.18)}
-
-/* PROJECTS */
-.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:18px;overflow:hidden;margin-top:56px}
-.pcard{background:var(--bgc);padding:40px 36px;position:relative;transition:background .3s}
-.pcard:hover{background:var(--bgc2)}
-.pfeat{grid-column:span 2;border-bottom:1px solid var(--bd);display:grid;grid-template-columns:1fr 1fr;gap:0}
-.pfeat-l{padding:40px 36px;border-right:1px solid var(--bd)}
-.pfeat-r{padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between}
-.pnum{font-family:var(--fm);font-size:11px;letter-spacing:.12em;color:var(--am);margin-bottom:10px;opacity:.7}
-.pctx{font-family:var(--fm);font-size:11px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
-.pcard h3{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--t1);line-height:1.25;letter-spacing:-.01em;margin-bottom:14px}
-.pcard p{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:18px}
-.ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
-.ptags span{font-family:var(--fm);font-size:11px;padding:3px 10px;border-radius:4px;background:var(--ams);border:1px solid rgba(245,158,11,.2);color:var(--am)}
-.pimpact{display:flex;gap:28px;padding-top:22px;border-top:1px solid var(--bd)}
-.impn{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--am);display:block}
-.impl{font-size:11px;color:var(--t3);font-family:var(--fm)}
-.pmet{display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:var(--ams);border:1px solid rgba(245,158,11,.2);border-radius:8px;width:fit-content}
-.pmbig{font-family:var(--fd);font-size:36px;font-weight:700;color:var(--am);line-height:1}
-.pmlbl{font-family:var(--fm);font-size:10px;color:var(--am);opacity:.7;text-transform:uppercase;letter-spacing:.07em}
-.plink{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:12px;color:var(--t3);border-bottom:1px solid var(--bd);padding-bottom:1px;transition:color .2s,border-color .2s;margin-top:auto}
-.plink:hover{color:var(--t1);border-color:var(--t3)}
-.pfeat-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
-.pstat-card{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:14px 16px}
-.pstat-n{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--am);display:block;line-height:1}
-.pstat-l{font-size:11px;color:var(--t3);font-family:var(--fm);margin-top:3px;display:block}
-
-/* ABOUT */
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.atext{display:flex;flex-direction:column;gap:18px;margin:30px 0 38px}
-.atext p{font-size:15px;color:var(--t2);line-height:1.8}
-.edu-h{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--am);margin-bottom:18px}
-.edu-item{padding:14px 0;border-top:1px solid var(--bd)}
-.edu-item:last-child{border-bottom:1px solid var(--bd)}
-.edu-d{font-size:14px;font-weight:500;color:var(--t1);display:block}
-.edu-s{font-size:12px;color:var(--t3);font-family:var(--fm);margin-top:3px;display:block}
-.hlcard{background:var(--bgc);border:1px solid var(--bd);border-radius:16px;padding:30px;margin-bottom:18px}
-.hlcard h4{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--am);margin-bottom:22px}
-.hllist{display:flex;flex-direction:column;gap:0}
-.hllist li{display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--t2);line-height:1.55;padding:14px 0;border-bottom:1px solid var(--bd)}
-.hllist li:last-child{border-bottom:none;padding-bottom:0}
-.hli{font-size:16px;flex-shrink:0;margin-top:1px}
-.avail{display:flex;align-items:flex-start;gap:16px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:22px}
-.avdot{width:10px;height:10px;border-radius:50%;background:#22C55E;flex-shrink:0;margin-top:5px;box-shadow:0 0 10px rgba(34,197,94,.5);animation:pulse 2s infinite}
-.avail strong{font-size:14px;color:var(--t1);display:block;margin-bottom:4px}
-.avail p{font-size:13px;color:var(--t2);line-height:1.5}
-
-/* CONTACT */
-.sec-contact{background:var(--bg2);border-top:1px solid var(--bd)}
-.cinner{max-width:680px}
-.chd{font-family:var(--fd);font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.05;letter-spacing:-.03em;color:var(--t1);margin-bottom:18px;margin-top:8px}
-.csub{font-size:16px;color:var(--t2);line-height:1.65;margin-bottom:48px}
-.clinks{display:flex;flex-direction:column;border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:40px}
-.citem{display:flex;align-items:center;gap:16px;padding:17px 22px;background:var(--bgc);border-bottom:1px solid var(--bd);font-size:14px;color:var(--t2);transition:background .2s,padding-left .25s,color .2s}
-.citem:last-child{border-bottom:none}
-.citem:hover{background:var(--bgc2);padding-left:30px;color:var(--t1)}
-.citem svg{color:var(--am);flex-shrink:0}
-.btn-ct{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;background:var(--am);color:#0A0A0F;font-weight:600;font-size:15px;border-radius:8px;transition:transform .2s,box-shadow .2s}
-.btn-ct:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(245,158,11,.4)}
-
-/* FOOTER */
-footer{padding:28px 48px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:20px}
-.flogo{font-family:var(--fm);font-size:14px}
-.fcopy{font-family:var(--fm);font-size:11px;color:var(--t3)}
-.ftop{display:flex;align-items:center;gap:6px;font-family:var(--fm);font-size:11px;color:var(--t3);transition:color .2s}
-.ftop:hover{color:var(--am)}
-
-/* REVEAL ANIMATIONS */
-.rl{overflow:hidden}
-.rl span{display:block;transform:translateY(108%);transition:transform .85s cubic-bezier(0.16,1,0.3,1)}
-.rl span.iv{transform:translateY(0)}
-.rf{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-.rf.iv{opacity:1;transform:translateY(0)}
-.ru{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
-.ru.iv{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .sgrid{grid-template-columns:repeat(2,1fr)}
-  .titem{grid-template-columns:190px 1fr;gap:36px}
-  .agrid{grid-template-columns:1fr;gap:52px}
-  .pfeat{grid-column:span 2;display:block}
-  .pfeat-l,.pfeat-r{padding:32px}
-  .pfeat-l{border-right:none;border-bottom:1px solid var(--bd)}
-}
-@media(max-width:768px){
-  :root{--section-gap:72px}
-  nav{padding:14px 20px}
-  nav.scrolled{padding:10px 20px}
-  .nav-links,.btn-hire{display:none}
-  .nav-tog{display:flex}
-  .hero{padding:100px 20px 72px}
-  .h-scroll{left:20px;bottom:24px}
-  .sec{padding:72px 20px}
-  .container{padding:0}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .stat:nth-child(2){border-right:none}
-  .stat:nth-child(3){border-top:1px solid var(--bd)}
-  .stat:nth-child(4){border-top:1px solid var(--bd);border-right:none}
-  .sgrid{grid-template-columns:1fr}
-  .pgrid{grid-template-columns:1fr}
-  .pfeat{grid-column:span 1}
-  .titem{grid-template-columns:1fr;gap:20px}
-  footer{flex-direction:column;text-align:center;padding:24px 20px}
-  .fcopy{display:none}
-  body{cursor:auto}
-  #cur,#curl{display:none}
-}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c10">
+  <meta name="description" content="Mohammad Zeeshan is a Java Backend Developer and Project Engineer at C-DAC. Explore his work on enterprise healthcare systems, 40+ end-to-end reports, REST APIs, 24x faster data processing, SQL performance and application security.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mohammad Zeeshan | Java Backend Developer">
+  <meta property="og:description" content="Engineering reliable backend systems — Java, Spring Boot, PostgreSQL, enterprise reporting, integrations and performance optimization.">
+  <title>Mohammad Zeeshan | Java Backend Developer & Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b0c10;--bg-alt:#11131a;--card:#141720;--card-2:#1a1e29;--stroke:rgba(255,255,255,.105);--stroke2:rgba(255,255,255,.18);--text:#f4f0e8;--muted:#b2b0ad;--dim:#898b95;--accent:#f5ae55;--accent2:#ffcc80;--accent-veil:rgba(245,174,85,.095);--radius:18px;--sans:'DM Sans',Arial,sans-serif;--head:'Manrope','DM Sans',Arial,sans-serif;--mono:'IBM Plex Mono',Consolas,monospace;--content:1190px}
+    *,*::before,*::after{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:92px} body{margin:0;color:var(--text);background:var(--bg);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased} a{color:inherit;text-decoration:none} a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent2);outline-offset:4px} button{font:inherit} img,svg{max-width:100%} ::selection{background:var(--accent);color:#0b0c10} .wrap{width:min(var(--content),calc(100% - 88px));margin-inline:auto}.mono,.eyebrow,.num,.tag,.meta,.small{font-family:var(--mono)}
+    .skip{position:fixed;top:-100px;left:12px;background:var(--accent);color:#111;padding:10px 16px;z-index:1000}.skip:focus{top:12px}
+    .topbar{position:fixed;z-index:100;left:0;top:0;width:100%;border-bottom:1px solid transparent;background:rgba(11,12,16,.76);backdrop-filter:blur(18px)}.topbar.scrolled{border-bottom-color:var(--stroke)}.topbar .inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}.wordmark{font:700 18px var(--mono);letter-spacing:-.075em}.wordmark span{color:var(--accent)}.links{display:flex;align-items:center;gap:27px}.links a:not(.nav-cta){font:500 12px var(--mono);color:#cbc6bf;transition:color .2s}.links a:hover{color:var(--accent)}.nav-cta{border:1px solid rgba(245,174,85,.65);background:var(--accent-veil);border-radius:999px;padding:9px 17px;color:var(--accent);font:600 12px var(--mono);white-space:nowrap}.nav-cta:hover{background:var(--accent);color:#101117}.navtoggle{display:none;background:transparent;border:1px solid var(--stroke);border-radius:10px;padding:8px 13px;color:var(--text);font-size:23px;cursor:pointer}.mobilemenu{display:none}
+    .hero{position:relative;min-height:820px;padding:170px 0 116px;overflow:hidden;isolation:isolate}.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:65px 65px;mask-image:linear-gradient(135deg,rgba(0,0,0,.95),transparent 89%)}.hero::after{content:"";position:absolute;z-index:-1;width:640px;height:640px;right:-240px;top:-160px;border-radius:50%;background:rgba(223,133,47,.11);filter:blur(110px)}.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.85fr);gap:74px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:flex;gap:9px;align-items:center}.eyebrow::before{content:"";height:6px;width:6px;border-radius:99px;background:var(--accent);box-shadow:0 0 18px rgba(245,174,85,.5)}h1,h2,h3,h4,p{margin-top:0}.hero h1{font:800 clamp(48px,5.3vw,80px)/1.12 var(--head);letter-spacing:-.068em;margin:24px 0 24px;max-width:720px}.hero h1 em{font-style:normal;color:var(--accent)}.hero p.lead{font-size:18px;line-height:1.8;max-width:630px;color:#c8c5c1}.hero p.lead strong{color:var(--text)}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:31px 0 32px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;padding:13px 21px;font-size:14px;font-weight:700;border:1px solid transparent;transition:transform .2s,background .2s,border .2s}.btn:hover{transform:translateY(-2px)}.btn.primary{background:var(--accent);color:#17120c}.btn.primary:hover{background:#ffc378}.btn.secondary{border-color:var(--stroke2);background:rgba(255,255,255,.035)}.btn.secondary:hover{border-color:var(--accent)}.hero-note{font:400 12px/1.7 var(--mono);color:#989a9f}.hero-note span{color:#d5d1c9}
+    .terminal{background:#13161d;border:1px solid rgba(255,255,255,.13);border-radius:20px;box-shadow:0 30px 100px rgba(0,0,0,.32);overflow:hidden;transform:rotate(1deg)}.terminal-head{padding:18px 21px;border-bottom:1px solid var(--stroke);display:flex;align-items:center;justify-content:space-between;color:#a6a6b0;font:500 11px var(--mono)}.dots{display:flex;gap:7px}.dots i{width:8px;height:8px;border-radius:50%;background:#f27379}.dots i:nth-child(2){background:#ecbc62}.dots i:nth-child(3){background:#72c48e}.term-main{padding:29px 31px}.term-kicker{color:var(--accent);font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.12em;margin-bottom:15px}.term-title{font:800 25px/1.25 var(--head);letter-spacing:-.035em;margin-bottom:12px}.term-desc{color:#b9bbc3;font-size:14px;line-height:1.8;margin:0}.term-divider{height:1px;background:var(--stroke);margin:23px 0}.flow-line{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font:500 11px var(--mono);color:#e1ded6}.flow-line span{background:#202630;border:1px solid var(--stroke);border-radius:7px;padding:6px 9px}.flow-line b{font-weight:400;color:var(--accent)}.term-foot{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--stroke);padding:14px 30px;color:#aeb0b4;font:400 11px var(--mono)}.term-foot strong{color:#a5dfb2;font-weight:500}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--stroke);border-radius:16px;overflow:hidden;background:#14161d;position:relative;margin-top:62px}.stat{padding:23px 28px;border-right:1px solid var(--stroke)}.stat:last-child{border-right:0}.stat strong{display:block;font:800 clamp(28px,3.3vw,42px)/1.2 var(--head);color:var(--accent);letter-spacing:-.045em}.stat span{display:block;font-size:12px;color:#a9a9af;line-height:1.5;margin-top:5px}
+    section.segment{padding:108px 0;border-top:1px solid var(--stroke)}.segment.alt{background:var(--bg-alt)}.section-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:45px}.kicker{color:var(--accent);font:500 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px}.section-head h2,.section-title{font:800 clamp(33px,3.7vw,54px)/1.18 var(--head);letter-spacing:-.053em;margin:0}.section-head p{font-size:15px;color:var(--muted);max-width:490px;margin:0;line-height:1.8}.section-intro{font-size:17px;color:var(--muted);max-width:810px;margin:0 0 34px;line-height:1.85}
+    .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px}.about-copy p{font-size:16px;line-height:1.95;color:#bfc0c2}.about-copy p strong{color:var(--text)}.value-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.value-card{border:1px solid var(--stroke);border-radius:13px;background:var(--card);padding:22px}.value-card h3{font:700 16px var(--head);margin:12px 0 8px}.value-card p{font-size:13px;color:var(--muted);line-height:1.7;margin:0}.glyph{color:var(--accent);font:600 16px var(--mono)}
+    .timeline{position:relative;margin-top:25px}.job{display:grid;grid-template-columns:220px 1fr;gap:55px;border-top:1px solid var(--stroke);padding:33px 0}.job:last-child{border-bottom:1px solid var(--stroke)}.job-date{font:500 12px var(--mono);color:var(--accent)}.job-meta{font-size:13px;color:var(--dim);margin-top:12px}.job h3{font:750 25px var(--head);letter-spacing:-.035em;margin-bottom:6px}.job .org{color:#c2bbb4;font-size:14px;margin-bottom:12px}.job p{color:var(--muted);font-size:14px;line-height:1.8}.bullet-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:9px}.bullet-list li{position:relative;padding-left:20px;color:#c2c0c3;font-size:14px;line-height:1.75}.bullet-list li::before{content:'↳';position:absolute;left:0;color:var(--accent)}.bullet-list strong{color:var(--text)}
+    .project-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}.project-link{display:block;background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:18px;min-height:130px;transition:border .2s,transform .2s}.project-link:hover{border-color:rgba(245,174,85,.55);transform:translateY(-3px)}.project-link .num{font-size:11px;color:var(--accent)}.project-link strong{display:block;font:700 15px/1.45 var(--head);margin-top:13px}.project-link small{color:var(--dim);font-size:11px}
+    .case{border:1px solid var(--stroke);border-radius:17px;overflow:hidden;background:var(--card);margin-top:18px;scroll-margin-top:95px}.case-feature{border-color:rgba(245,174,85,.34);background:linear-gradient(125deg,rgba(245,174,85,.07),transparent 64%),var(--card)}.case-head{padding:33px 36px 24px;display:flex;gap:20px;justify-content:space-between;align-items:flex-start}.case .case-num{font:500 11px var(--mono);color:var(--accent);margin-bottom:10px}.case h3{font:800 clamp(24px,2.6vw,35px)/1.3 var(--head);letter-spacing:-.05em;margin-bottom:8px}.case .sub{font-size:14px;color:var(--muted);max-width:780px;margin:0;line-height:1.8}.status{font:500 10px var(--mono);text-transform:uppercase;white-space:nowrap;letter-spacing:.035em;border:1px solid rgba(137,210,163,.35);color:#b5e0c1;background:rgba(107,178,132,.08);padding:7px 11px;border-radius:999px}.status.ongoing{border-color:rgba(245,174,85,.35);background:var(--accent-veil);color:var(--accent)}.case-body{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:0 36px 28px}.case-body h4{font:700 11px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin:15px 0 10px}.case-body p,.case-body li{color:#bec0c4;font-size:14px;line-height:1.85}.case-body p{margin-bottom:10px}.case-body ul{padding-left:18px;margin:0}.case-body li{padding-left:4px;margin-bottom:5px}.case-footer{padding:19px 36px 23px;border-top:1px solid var(--stroke);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{border:1px solid var(--stroke);background:rgba(255,255,255,.033);border-radius:5px;color:#b9b8bc;font:500 10px var(--mono);padding:5px 9px}.result{font:600 12px var(--mono);color:var(--accent)}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:stretch;margin-top:18px}.process div{border:1px solid rgba(245,174,85,.21);background:rgba(245,174,85,.055);border-radius:8px;padding:11px 10px;color:#e4d8c7;font:500 11px/1.5 var(--mono);text-align:center;position:relative}.process div:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--accent);z-index:1}
+    .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.skillbox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:27px}.skillbox h3{font:750 17px var(--head);margin:0 0 15px}.skillbox h3 span{color:var(--accent);margin-right:8px;font-family:var(--mono)}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{font:500 12px/1.4 var(--sans);color:#ded9d5;background:rgba(255,255,255,.04);border:1px solid var(--stroke);border-radius:7px;padding:7px 10px}
+    .education-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.edu{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:28px}.edu .year{font:500 12px var(--mono);color:var(--accent);margin-bottom:16px}.edu h3{font:750 19px/1.45 var(--head);margin:0 0 10px}.edu p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.awards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:19px}.award{border:1px solid rgba(245,174,85,.22);border-radius:12px;padding:23px;background:var(--accent-veil)}.award .year{font:500 11px var(--mono);color:var(--accent)}.award h3{font:700 16px var(--head);margin:9px 0 6px}.award p{font-size:13px;color:var(--muted);margin:0}
+    .contact{position:relative;overflow:hidden}.contact::after{content:"";position:absolute;width:440px;height:440px;right:-200px;top:-180px;background:rgba(245,174,85,.12);filter:blur(110px);pointer-events:none}.contact-panel{position:relative;z-index:1;border:1px solid rgba(245,174,85,.3);border-radius:23px;background:linear-gradient(120deg,rgba(245,174,85,.075),rgba(255,255,255,.005));padding:55px}.contact h2{font:800 clamp(33px,4vw,54px)/1.17 var(--head);max-width:690px;letter-spacing:-.05em;margin:0 0 14px}.contact p{max-width:640px;color:#bfc0c4;font-size:15px;line-height:1.85}.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.contact-meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;color:#aba8a8;font:400 12px var(--mono)}.contact-meta a{text-decoration:underline;text-decoration-color:rgba(245,174,85,.5);text-underline-offset:4px}.contact-meta a:hover{color:var(--accent)}
+    footer{padding:31px 0;border-top:1px solid var(--stroke);font-size:12px;color:var(--dim)}footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}footer a:hover{color:var(--accent)}
+    @media (max-width:1020px){.hero-grid{grid-template-columns:1fr;gap:38px}.terminal{max-width:680px;transform:none}.hero{min-height:unset}.project-nav{grid-template-columns:repeat(2,1fr)}.skill-grid{grid-template-columns:repeat(2,1fr)}.about-grid{grid-template-columns:1fr;gap:22px}.section-head{display:block}.section-head p{margin-top:16px}.hero h1{max-width:850px}}
+    @media (max-width:740px){.wrap{width:min(var(--content),calc(100% - 38px))}.topbar .inner{min-height:68px}.links{display:none}.navtoggle{display:block}.mobilemenu{position:absolute;top:100%;left:0;right:0;flex-direction:column;padding:14px 19px 20px;background:#12141b;border-bottom:1px solid var(--stroke);box-shadow:0 20px 30px rgba(0,0,0,.2)}.mobilemenu.open{display:flex}.mobilemenu a{padding:10px 6px;font-size:14px;border-bottom:1px solid var(--stroke)}.hero{padding:122px 0 65px}.hero h1{font-size:clamp(42px,10vw,62px)}.hero p.lead{font-size:16px}.stats{grid-template-columns:1fr 1fr;margin-top:42px}.stat{padding:16px;border-bottom:1px solid var(--stroke)}.stat:nth-child(2){border-right:0}.stat:nth-child(n+3){border-bottom:0}section.segment{padding:73px 0}.section-head h2{font-size:36px}.job{grid-template-columns:1fr;gap:13px;padding:27px 0}.project-nav,.skill-grid,.education-grid,.awards,.case-body,.value-grid{grid-template-columns:1fr}.case-head{flex-direction:column;padding:25px 22px 18px}.case-body{padding:0 22px 25px;gap:8px}.case-footer{padding:18px 22px}.status{align-self:start}.process{grid-template-columns:repeat(2,1fr)}.process div:nth-child(2)::after{display:none}.contact-panel{padding:30px 24px}.term-main{padding:22px}.term-foot{padding:12px 21px;flex-wrap:wrap}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
 </head>
 <body>
-
-<div id="cur"></div>
-<div id="curl"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <span class="logo"><b>&lt;</b>mz<b>/&gt;</b></span>
-  <ul class="nav-links">
-    <li><a href="#experience">Work</a></li>
-    <li><a href="#stack">Stack</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
-  <a href="mailto:zeeshannid12@gmail.com" class="btn-hire">Hire me ↗</a>
-  <button class="nav-tog" id="navTog" aria-label="Open menu"><span></span><span></span></button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="nav-mob" id="navMob">
-  <button class="mob-close" id="mobClose">✕</button>
-  <a href="#experience" class="mob-link">Work</a>
-  <a href="#stack" class="mob-link">Stack</a>
-  <a href="#projects" class="mob-link">Projects</a>
-  <a href="#about" class="mob-link">About</a>
-  <a href="mailto:zeeshannid12@gmail.com" class="mob-link mob-cta">Hire me →</a>
-</div>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="h-grid"></div>
-  <div class="h-g1"></div>
-  <div class="h-g2"></div>
-  <div class="hero-inner">
-    <div class="badge rf"><span class="bdot"></span>Available for senior backend roles</div>
-    <h1 class="hero-h">
-      <span class="rl"><span>Backend engineer who ships</span></span>
-      <span class="rl" style="transition-delay:.1s"><span><em class="acc">secure</em>, <em class="acc">scalable</em> systems.</span></span>
-    </h1>
-    <p class="hero-sub rf">Mohammad Zeeshan — Java · Spring Boot · PostgreSQL<br>Building healthcare infrastructure at <strong>C-DAC</strong>, powering national platforms including <strong>AIIMS</strong>.</p>
-    <div class="hero-acts rf">
-      <a href="#projects" class="btn-p">See my work <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a href="Mohammad_zeeshan_CV.pdf" download class="btn-s">Download CV</a>
+<a href="#main" class="skip">Skip to content</a>
+<header class="topbar" id="topbar">
+  <nav class="wrap inner" aria-label="Primary navigation">
+    <a class="wordmark" href="#home" aria-label="Mohammad Zeeshan, home"><span>&lt;</span>mz<span>/&gt;</span></a>
+    <div class="links"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Case studies</a><a href="#skills">Skills</a><a href="#recognition">Recognition</a><a class="nav-cta" href="#contact">Let's connect ↗</a></div>
+    <button id="menuToggle" class="navtoggle" aria-expanded="false" aria-controls="mobilemenu" aria-label="Toggle navigation">☰</button>
+    <div class="mobilemenu" id="mobilemenu"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Case studies</a><a href="#skills">Skills</a><a href="#recognition">Recognition</a><a href="#contact">Contact</a></div>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero" id="home" aria-labelledby="heroTitle"><div class="wrap"><div class="hero-grid">
+    <div><div class="eyebrow">Java Backend Developer · Software Engineer</div><h1 id="heroTitle">I make backend systems <em>faster, safer &amp; more reliable.</em></h1>
+      <p class="lead">I'm <strong>Mohammad Zeeshan</strong>, a Project Engineer at <strong>C-DAC</strong>. I build healthcare workflows, REST integrations and database-backed reporting systems — and improve the performance and security of software running in production.</p>
+      <div class="hero-actions"><a href="#projects" class="btn primary">Explore my work <span aria-hidden="true">↗</span></a><a class="btn secondary" href="assets/Mohammad_Zeeshan_Java_Backend_Resume.pdf" download>Download resume ↓</a></div>
+      <div class="hero-note"><span>Java 8 · Spring Boot · REST APIs · PostgreSQL · SQL</span><br>Based in Noida, India · Open to Java backend / software engineering roles</div>
     </div>
-    <div class="stats-row rf">
-      <div class="stat"><span class="sn" id="c1">0</span><span class="su">+ yrs</span><p>Backend engineering</p></div>
-      <div class="stat"><span class="sn" id="c2">0</span><span class="su">+</span><p>Security findings closed</p></div>
-      <div class="stat"><span class="sn" id="c3">0</span><span class="su">%</span><p>Avg perf improvement</p></div>
-      <div class="stat"><span class="sn" id="c4">0</span><span class="su">+</span><p>DSA problems solved</p></div>
-    </div>
+    <div class="terminal" aria-label="Engineering overview"><div class="terminal-head"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>engineering_snapshot.md</span><span>● verified highlights</span></div><div class="term-main">
+      <div class="term-kicker">My engineering focus</div><h2 class="term-title">From business requirement to production-ready delivery.</h2><p class="term-desc">Java backend workflows, third-party interfaces, SQL optimization, scheduled data pipelines, healthcare reports, and secure application releases.</p>
+      <div class="term-divider"></div><div class="term-kicker">Representative reporting architecture</div><div class="flow-line"><span>JSP / filters</span><b>→</b><span>Controller</span><b>→</b><span>DAO / SQL</span><b>→</b><span>Report</span></div><div class="term-divider"></div><p class="term-desc"><strong style="color:#eae6df">Core approach:</strong> understand the workflow, build the full implementation, measure bottlenecks, improve reliability, and document the result.</p>
+    </div><div class="term-foot"><span>Backend engineering · Healthcare IT</span><strong>● Open to opportunities</strong></div></div>
   </div>
-  <div class="h-scroll"><div class="h-scl"></div><span>scroll</span></div>
-</section>
+  <div class="stats" aria-label="Selected career highlights"><div class="stat"><strong>24×</strong><span>Faster recurring data-processing run</span></div><div class="stat"><strong>40+</strong><span>End-to-end healthcare reports developed</span></div><div class="stat"><strong>19</strong><span>AIIMS hospitals in application-security scope</span></div><div class="stat"><strong>~20</strong><span>Mobile apps in security-remediation scope</span></div></div>
+  </div></section>
 
-<!-- EXPERIENCE -->
-<section class="sec" id="experience">
-  <div class="container">
-    <div class="sec-label"><span class="ltag">01</span> Experience</div>
-    <h2 class="stitle">Where I've built.</h2>
-    <div class="timeline">
-      <div class="titem ru">
-        <div class="tmeta">
-          <span class="tper">Aug 2024 — Present</span>
-          <span class="tloc">Noida, India</span>
-          <div class="tawd">★ Letter of Appreciation</div>
-        </div>
-        <div>
-          <div class="tco">C-DAC — Centre for Development of Advanced Computing</div>
-          <div class="trole">Project Engineer</div>
-          <div class="tsum">Backend ownership across national healthcare platforms serving AIIMS and government deployments.</div>
-          <ul class="tbulls">
-            <li>Designed an age-based <strong>vaccination recommendation engine</strong> driving eligibility &amp; schedules across the full immunization lifecycle</li>
-            <li>Built <strong>JWT-secured REST APIs</strong> and integrations for eTaal reporting and inter-system healthcare data exchange</li>
-            <li>Authored BIRT reports for clinical &amp; operational analytics — parameterised dashboards consumed by hospital administrators</li>
-            <li>Implemented scheduler-based <strong>cross-database synchronisation</strong> feeding Open DB reporting pipelines</li>
-            <li>Cut response times by up to <strong>30%</strong> through SQL and JPA query optimisation</li>
-            <li>Closed <strong>30+ VAPT findings</strong> with OWASP-aligned controls, secure coding patterns and application hardening</li>
-            <li>Ran JMeter load tests to surface bottlenecks before production rollout</li>
-          </ul>
-          <div class="ttags"><span>Java 8+</span><span>Spring Boot</span><span>PostgreSQL</span><span>Spring Security</span><span>BIRT</span><span>JMeter</span><span>Hibernate</span></div>
-        </div>
-      </div>
-      <div class="titem ru">
-        <div class="tmeta">
-          <span class="tper">Jan 2024 — Aug 2024</span>
-          <span class="tloc">Noida, India</span>
-        </div>
-        <div>
-          <div class="tco">C-DAC — Centre for Development of Advanced Computing</div>
-          <div class="trole">Software Engineer Intern</div>
-          <div class="tsum">Full-stack delivery on hospital workflow modules.</div>
-          <ul class="tbulls">
-            <li>Built a full-stack <strong>Laundry Management module</strong> (Spring Boot + React) wired into real hospital workflows</li>
-            <li>Shipped REST APIs and persistence layers in an Agile cadence with design reviews and pair debugging</li>
-            <li>Performed testing and debugging to ensure reliability and performance of application features</li>
-          </ul>
-          <div class="ttags"><span>Spring Boot</span><span>React.js</span><span>REST APIs</span><span>MySQL</span><span>Agile</span></div>
-        </div>
-      </div>
+  <section class="segment alt" id="about"><div class="wrap"><div class="section-head"><div><div class="kicker">01 / Introduction</div><h2>What I do — and why it matters.</h2></div><p>I focus on backend problems where business logic, data quality, performance, and production reliability intersect.</p></div>
+    <div class="about-grid"><div class="about-copy">
+      <p>I have <strong>2 years and 4 months of full-time C-DAC experience, plus a 7-month paid software development internship</strong>. My work spans an end-to-end Child Immunization module, integrations with eTAAL, VITAL and PICME, scheduled data synchronization, enterprise healthcare reporting and application security.</p>
+      <p>I'm comfortable working across a layered Java application: understanding requirements, implementing Controllers and DAO logic, writing SQL, building configurable JSP interfaces, producing report layouts, and working with the teams responsible for testing and deployments.</p>
+      <p>I've also partnered with external performance engineers to turn JMeter observations into code and database fixes, contributed to an Apache Airflow migration that reduced a recurring run from roughly <strong>10 minutes to 25 seconds</strong>, and helped remediate vulnerabilities before production release.</p>
+      <p><strong>The value I bring:</strong> ownership of functional workflows, attention to database and API performance, security-minded engineering, and a practical understanding of how enterprise software gets released and supported.</p>
+    </div><div class="value-grid">
+      <div class="value-card"><span class="glyph">01 /</span><h3>Backend ownership</h3><p>Translate complex workflows into maintainable backend components and database operations.</p></div>
+      <div class="value-card"><span class="glyph">02 /</span><h3>Performance focus</h3><p>Investigate connection leaks, slow SQL, redundant calls, and processing bottlenecks.</p></div>
+      <div class="value-card"><span class="glyph">03 /</span><h3>Production security</h3><p>Fix application and WAR dependency vulnerabilities and support clearance workflows.</p></div>
+      <div class="value-card"><span class="glyph">04 /</span><h3>Collaboration</h3><p>Coordinate with vendors, deployment teams and engineers while guiding two junior colleagues.</p></div>
+    </div></div></div></section>
+
+  <section class="segment" id="experience"><div class="wrap"><div class="section-head"><div><div class="kicker">02 / Experience</div><h2>Building where it counts.</h2></div><p>Progression from frontend workflow development during a paid internship to Java backend engineering and production application ownership.</p></div>
+    <div class="timeline"><article class="job"><div><div class="job-date">Aug 2024 — Present</div><div class="job-meta">Full-time · Noida, India</div></div><div><h3>Project Engineer · Java Backend Developer</h3><div class="org">Centre for Development of Advanced Computing (C-DAC)</div><p>Developing enterprise healthcare functionality, integrations and reports, while contributing to application performance, security and production readiness.</p>
+      <ul class="bullet-list"><li><strong>Built Child Immunization workflows</strong> from vaccination master configuration and schedule mapping to due notifications and administered-dose records.</li><li><strong>Created 40+ full-stack reporting workflows</strong> using JSP, Java Controller/VO/DAO/Helper/Utility layers, SQL and BIRT RPT design.</li><li><strong>Developed eTAAL, VITAL and PICME integrations</strong> and Quartz jobs for scheduled synchronization between databases.</li><li><strong>Contributed to a 24× faster processing run</strong> through migration of scheduled synchronization to Apache Airflow using Python.</li><li><strong>Worked with EY performance engineers</strong> to address JMeter findings, connection leaks, redundant API calls and SQL bottlenecks.</li><li><strong>Remediated security findings</strong> for healthcare applications deployed across 19 AIIMS hospitals, a Tamil Nadu blood-bank platform and approximately 20 mobile apps.</li><li><strong>Supported Safe-to-Host certification</strong> with external vendors, data-centre teams and deployment stakeholders; guide two junior team members in reporting and security work.</li><li><strong>Current initiative:</strong> contributing to a centralized ticket management platform using Java 8, Spring Boot, React.js and PostgreSQL.</li></ul>
+    </div></article><article class="job"><div><div class="job-date">Jan 2024 — Aug 2024</div><div class="job-meta">Paid internship · Noida, India</div></div><div><h3>Software Engineer Intern</h3><div class="org">Centre for Development of Advanced Computing (C-DAC)</div><p>Designed the frontend workflow for a hospital Laundry Management module, making it easier for departments to view item availability and raise requests.</p><ul class="bullet-list"><li>Developed <strong>four frontend screens</strong> for item availability, departmental requests and workflow operations.</li><li>Implemented department selection and supply request interactions for items such as bedsheets.</li><li>Created an operational report and learned how real healthcare software requirements move into enterprise application workflows.</li></ul></div></article></div>
+  </div></section>
+
+  <section class="segment alt" id="projects"><div class="wrap"><div class="section-head"><div><div class="kicker">03 / Selected work</div><h2>Eight projects and engineering workstreams.</h2></div><p>A deeper look at the responsibilities, architecture, problems and results behind the keywords on my resume.</p></div>
+    <nav class="project-nav" aria-label="Jump to case studies">
+      <a class="project-link" href="#case-immunization"><span class="num">01 / Healthcare</span><strong>Child Immunization</strong><small>End-to-end workflow ↗</small></a>
+      <a class="project-link" href="#case-reporting"><span class="num">02 / Reporting</span><strong>40+ Enterprise Reports</strong><small>Java + JSP + SQL ↗</small></a>
+      <a class="project-link" href="#case-data"><span class="num">03 / Integration</span><strong>REST APIs &amp; Airflow</strong><small>24× faster run ↗</small></a>
+      <a class="project-link" href="#case-performance"><span class="num">04 / Performance</span><strong>JMeter &amp; SQL Tuning</strong><small>Reliability fixes ↗</small></a>
+      <a class="project-link" href="#case-security"><span class="num">05 / AppSec</span><strong>Safe-to-Host</strong><small>Healthcare deployments ↗</small></a>
+      <a class="project-link" href="#case-ticketing"><span class="num">06 / Current</span><strong>Ticket Management</strong><small>React + Spring Boot ↗</small></a>
+      <a class="project-link" href="#case-laundry"><span class="num">07 / Internship</span><strong>Laundry Management</strong><small>4-screen workflow ↗</small></a>
+      <a class="project-link" href="#case-chat"><span class="num">08 / Personal</span><strong>Real-Time Chat</strong><small>WebSocket + STOMP ↗</small></a>
+    </nav>
+    <article class="case case-feature" id="case-immunization"><div class="case-head"><div><div class="case-num">CASE STUDY 01 · HEALTHCARE WORKFLOWS</div><h3>Child Immunization Module</h3><p class="sub">Built the backend workflow connecting vaccine master configuration, newborn scheduling, due-dose notifications and vaccination administration records.</p></div><span class="status">Delivered work</span></div><div class="case-body"><div><h4>Problem &amp; approach</h4><p>Tracking each child's vaccination timeline requires consistent vaccine master data, schedule mapping and reliable records of which doses have been administered. I worked on the end-to-end module workflow to connect those stages inside the healthcare application.</p><p>Configuration establishes the vaccination rules. A newborn is mapped against the schedule, due doses can trigger notifications, and administered vaccines are recorded against the child in the database.</p></div><div><h4>My implementation</h4><ul><li>Configured vaccine master data and newborn-to-vaccine schedule mapping.</li><li>Implemented logic supporting due-dose identification and notifications.</li><li>Handled recording of administered vaccinations for ongoing tracking.</li><li>Connected the workflow to application data and database operations.</li></ul><div class="process" aria-label="Immunization workflow"><div>Vaccine master</div><div>Newborn mapping</div><div>Due notification</div><div>Dose recorded</div></div></div></div><div class="case-footer"><div class="tags"><span class="tag">Java 8</span><span class="tag">Business logic</span><span class="tag">Database workflows</span><span class="tag">Notifications</span></div><span class="result">End-to-end module development</span></div></article>
+
+    <article class="case case-feature" id="case-reporting"><div class="case-head"><div><div class="case-num">CASE STUDY 02 · ENTERPRISE REPORTING</div><h3>40+ End-to-End Healthcare Reports</h3><p class="sub">Built the complete reporting flow — not only the report design — from UI criteria and Java backend layers through SQL queries, report templates and exports.</p></div><span class="status">40+ delivered</span></div><div class="case-body"><div><h4>My implementation</h4><ul><li>Built JSP criteria screens with date-wise, month-wise and year-wise options where required.</li><li>Implemented department, district, institution and related report filters depending on business requirements.</li><li>Developed Java Controllers, VO objects, DAO queries, Helper and Utility methods.</li><li>Retrieved and aggregated database fields with SQL and backend report logic.</li><li>Designed BIRT RPT templates and generated output with HTML and Excel export options.</li></ul></div><div><h4>Representative reports &amp; data flow</h4><p><strong style="color:#f0ede7">ABHA Count Report:</strong> institution-level registration and ABHA-linkage statistics, with date, month and year options.</p><p><strong style="color:#f0ede7">Out-patient Line List:</strong> patient-visit reporting criteria including dates and department selection.</p><p>Other departmental and operational reports applied reusable reporting patterns to different healthcare data requirements.</p><div class="process" aria-label="Reporting architecture"><div>JSP filters</div><div>Controller / VO</div><div>DAO / SQL</div><div>RPT + export</div></div><p style="font-size:11px;color:var(--dim);margin-top:12px">Illustrative implementation flow — no private production data displayed.</p></div></div><div class="case-footer"><div class="tags"><span class="tag">Java</span><span class="tag">JSP</span><span class="tag">SQL</span><span class="tag">Struts2</span><span class="tag">Eclipse BIRT</span><span class="tag">DAO / VO</span><span class="tag">Excel</span></div><span class="result">40+ reporting workflows</span></div></article>
+
+    <article class="case" id="case-data"><div class="case-head"><div><div class="case-num">CASE STUDY 03 · INTEGRATIONS &amp; DATA PIPELINES</div><h3>REST APIs, Quartz Scheduling &amp; Apache Airflow</h3><p class="sub">Connecting external systems and keeping multiple databases synchronized as recurring processing needs grew.</p></div><span class="status">Measured impact</span></div><div class="case-body"><div><h4>What I built</h4><p>Developed REST API integrations for <strong style="color:var(--text)">eTAAL, VITAL and PICME</strong>. Implemented Quartz jobs to retrieve data from one database and synchronize it to other databases on scheduled intervals.</p><p>As data volume grew, the existing scheduled synchronization workload became more expensive to run. I contributed to moving the workload to Python-based Apache Airflow processing.</p></div><div><h4>Results &amp; responsibility</h4><ul><li>Implemented third-party API integration and scheduled synchronization workflows.</li><li>Contributed to workflow migration rather than claiming sole ownership of the entire Airflow platform.</li><li>Helped reduce one recurring processing run from approximately 10 minutes to 25 seconds.</li></ul><div style="margin-top:17px;border:1px solid rgba(245,174,85,.22);border-radius:10px;background:var(--accent-veil);padding:16px"><strong style="font:800 31px var(--head);color:var(--accent)">24× faster</strong><div style="font-size:12px;color:var(--muted)">~10 min → 25 sec, for the measured recurring run</div></div></div></div><div class="case-footer"><div class="tags"><span class="tag">REST APIs</span><span class="tag">Quartz</span><span class="tag">Apache Airflow</span><span class="tag">Python</span><span class="tag">Database sync</span></div><span class="result">10 minutes → 25 seconds</span></div></article>
+
+    <article class="case" id="case-performance"><div class="case-head"><div><div class="case-num">CASE STUDY 04 · PERFORMANCE ENGINEERING</div><h3>JMeter Findings to Production Fixes</h3><p class="sub">Worked with EY performance engineers to investigate why application requests and database operations were slowing down.</p></div><span class="status">Production engineering</span></div><div class="case-body"><div><h4>Investigation</h4><p>EY shared JMeter performance reports that highlighted slow workflows and requests. I collaborated on the subsequent application analysis, identifying issues spanning resource management, repeated API calls and expensive SQL operations.</p><p>Problems were evaluated at both application and database levels rather than treating every slowdown as a single query issue.</p></div><div><h4>Fixes contributed to</h4><ul><li>Fixed database connections that were not being closed correctly in some applications.</li><li>Removed redundant API calls triggered within requests.</li><li>Worked on inefficient large-image storage or handling concerns.</li><li>Introduced or adjusted indexes and partitioning for relevant database workloads.</li><li>Improved date filtering by removing unnecessary column-side truncation functions in queries where applicable.</li></ul></div></div><div class="case-footer"><div class="tags"><span class="tag">JMeter</span><span class="tag">SQL tuning</span><span class="tag">Indexes</span><span class="tag">Partitioning</span><span class="tag">Connection lifecycle</span></div><span class="result">Performance &amp; reliability remediation</span></div></article>
+
+    <article class="case" id="case-security"><div class="case-head"><div><div class="case-num">CASE STUDY 05 · APPLICATION SECURITY</div><h3>Vulnerability Remediation &amp; Safe-to-Host</h3><p class="sub">Security remediation and third-party assessment coordination for large-scale healthcare applications before production clearance.</p></div><span class="status">Award recognized</span></div><div class="case-body"><div><h4>Scope of work</h4><p>Worked on application security for healthcare platforms deployed across <strong style="color:var(--text)">19 AIIMS hospitals</strong>, a Tamil Nadu blood-bank web application and approximately <strong style="color:var(--text)">20 mobile applications</strong>. External vendors used tools such as Burp Suite and returned detailed vulnerability reports.</p><p>I reviewed findings, implemented application fixes, coordinated retesting and worked with deployment and data-centre teams on clearance certificates.</p></div><div><h4>Technical &amp; coordination responsibilities</h4><ul><li>Investigated security reports and remediated issues in application code.</li><li>Addressed WAR-level findings such as vulnerable libraries and dependency versions.</li><li>Coordinated third-party assessment, revalidation and Safe-to-Host certification.</li><li>Guided a junior colleague supporting vulnerability review and remediation.</li><li>Received a C-DAC Letter of Appreciation for contributions to secure application development.</li></ul></div></div><div class="case-footer"><div class="tags"><span class="tag">Application security</span><span class="tag">Burp Suite</span><span class="tag">VAPT remediation</span><span class="tag">WAR assessment</span><span class="tag">Safe-to-Host</span></div><span class="result">19 AIIMS + state and mobile platforms in scope</span></div></article>
+
+    <article class="case" id="case-ticketing"><div class="case-head"><div><div class="case-num">CASE STUDY 06 · CURRENT INITIATIVE</div><h3>Centralized Ticket Management Platform</h3><p class="sub">Contributing to the architecture and development of a platform that tracks operational requests and deployment readiness in one place.</p></div><span class="status ongoing">In development</span></div><div class="case-body"><div><h4>Business need</h4><p>Requests and releases create coordination work across teams. The planned platform brings PRs, CRs, blockers, testing status and production deployments into a centralized workflow to improve visibility and tracking.</p></div><div><h4>Technical focus</h4><ul><li>Collaborating with stakeholders on architecture and development.</li><li>Working with a Java 8 + Spring Boot backend and PostgreSQL database.</li><li>Using React.js for the frontend interface and workflow views.</li><li>Project is ongoing; no unsupported release or adoption metrics are claimed.</li></ul></div></div><div class="case-footer"><div class="tags"><span class="tag">Java 8</span><span class="tag">Spring Boot</span><span class="tag">React.js</span><span class="tag">PostgreSQL</span></div><span class="result">Current development work</span></div></article>
+
+    <article class="case" id="case-laundry"><div class="case-head"><div><div class="case-num">CASE STUDY 07 · PAID INTERNSHIP</div><h3>Hospital Laundry Management — Frontend</h3><p class="sub">Designed four application screens and a practical request flow for departmental laundry inventory and supply needs.</p></div><span class="status">Internship project</span></div><div class="case-body"><div><h4>What users needed</h4><p>Hospital departments needed a way to see the availability of items such as bedsheets and submit supply requests with a clear department selection workflow.</p><p>My focus was frontend implementation, not a claim of sole ownership of the backend services.</p></div><div><h4>My contribution</h4><ul><li>Developed four frontend screens covering availability and request operations.</li><li>Built department dropdowns and item request interactions.</li><li>Created an operational report supporting laundry workflow information.</li><li>Learned how to translate hospital operating requirements into usable application screens.</li></ul></div></div><div class="case-footer"><div class="tags"><span class="tag">Frontend development</span><span class="tag">UI workflows</span><span class="tag">Form design</span><span class="tag">Reporting</span></div><span class="result">4 application screens + 1 report</span></div></article>
+
+    <article class="case" id="case-chat"><div class="case-head"><div><div class="case-num">CASE STUDY 08 · PERSONAL PROJECT</div><h3>Real-Time Chat Application</h3><p class="sub">A personal implementation of room-based messaging using Spring Boot and WebSocket/STOMP with persistent message history.</p></div><span class="status">Personal project</span></div><div class="case-body"><div><h4>Project design</h4><p>Built a room-based chat flow where messages can be distributed through WebSocket/STOMP and saved to PostgreSQL, with REST APIs and a React.js frontend for message interactions.</p></div><div><h4>What it demonstrates</h4><ul><li>Event-oriented client/server communication over WebSockets.</li><li>Spring Boot REST endpoints alongside message delivery.</li><li>Database persistence and retrieval of chat history.</li><li>Integration of React.js frontend and Java backend technologies.</li></ul><p style="font-size:12px;margin-top:12px">See my GitHub profile for public repositories. A project-specific repository link is not asserted here.</p></div></div><div class="case-footer"><div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">WebSocket/STOMP</span><span class="tag">React.js</span><span class="tag">PostgreSQL</span></div><a class="result" href="https://github.com/Zeeshushiekh" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a></div></article>
+  </div></section>
+
+  <section class="segment" id="skills"><div class="wrap"><div class="section-head"><div><div class="kicker">04 / Skills</div><h2>Technology and engineering toolkit.</h2></div><p>Skills from my resume, together with techniques used in healthcare application development, reporting and performance investigations.</p></div>
+    <div class="skill-grid">
+      <div class="skillbox"><h3><span>01</span> Backend</h3><div class="chips"><span class="chip">Java 8</span><span class="chip">Spring Boot</span><span class="chip">Spring MVC</span><span class="chip">REST APIs</span><span class="chip">Spring Data JPA</span><span class="chip">Hibernate</span></div></div>
+      <div class="skillbox"><h3><span>02</span> Databases</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">SQL</span><span class="chip">Oracle</span><span class="chip">MySQL</span><span class="chip">Stored procedures</span><span class="chip">Indexing</span><span class="chip">Partitioning</span><span class="chip">Query optimization</span></div></div>
+      <div class="skillbox"><h3><span>03</span> Integration &amp; Data</h3><div class="chips"><span class="chip">REST integrations</span><span class="chip">Quartz Scheduler</span><span class="chip">Apache Airflow</span><span class="chip">Python</span><span class="chip">ETL concepts</span><span class="chip">Database synchronization</span></div></div>
+      <div class="skillbox"><h3><span>04</span> Reporting &amp; UI</h3><div class="chips"><span class="chip">JSP</span><span class="chip">Struts2</span><span class="chip">Eclipse BIRT / RPT</span><span class="chip">Controller / VO / DAO</span><span class="chip">Dynamic filters</span><span class="chip">Excel exports</span><span class="chip">React.js</span><span class="chip">JavaScript</span></div></div>
+      <div class="skillbox"><h3><span>05</span> Security &amp; Testing</h3><div class="chips"><span class="chip">OWASP remediation</span><span class="chip">Burp Suite</span><span class="chip">WAR assessment</span><span class="chip">JMeter</span><span class="chip">Spring Security</span><span class="chip">JWT</span></div></div>
+      <div class="skillbox"><h3><span>06</span> Tooling &amp; Delivery</h3><div class="chips"><span class="chip">Git</span><span class="chip">Maven</span><span class="chip">WildFly</span><span class="chip">Docker</span><span class="chip">Deployment coordination</span><span class="chip">Technical mentoring</span></div></div>
     </div>
-  </div>
-</section>
+  </div></section>
 
-<!-- STACK -->
-<section class="sec sec-dark" id="stack">
-  <div class="container">
-    <div class="sec-label"><span class="ltag">02</span> Stack</div>
-    <h2 class="stitle">Tools I reach for daily.</h2>
-    <p class="ssub">Chosen for reliability, not novelty.</p>
-    <div class="sgrid">
-      <div class="scard ru">
-        <div class="sico">⚙️</div>
-        <h4>Backend</h4>
-        <div class="sitems"><span>Java 8+</span><span>Spring Boot</span><span>Spring MVC</span><span>Spring Security</span><span>Spring Data JPA</span><span>Hibernate</span><span>REST APIs</span><span>Microservices</span></div>
-      </div>
-      <div class="scard ru">
-        <div class="sico">🗄️</div>
-        <h4>Data</h4>
-        <div class="sitems"><span>PostgreSQL</span><span>MySQL</span><span>Oracle SQL</span><span>Query Optimization</span><span>Scheduler-based Sync</span></div>
-      </div>
-      <div class="scard ru">
-        <div class="sico">🔐</div>
-        <h4>Security</h4>
-        <div class="sitems"><span>OWASP Top 10</span><span>VAPT Remediation</span><span>JWT / Auth</span><span>Burp Suite</span><span>Secure Coding</span></div>
-      </div>
-      <div class="scard ru">
-        <div class="sico">⚡</div>
-        <h4>Performance</h4>
-        <div class="sitems"><span>JMeter Load Testing</span><span>SQL Tuning</span><span>Bottleneck Analysis</span><span>Caching Strategy</span></div>
-      </div>
-      <div class="scard ru">
-        <div class="sico">📊</div>
-        <h4>Reporting &amp; BI</h4>
-        <div class="sitems"><span>BIRT Reports</span><span>eTaal Reporting</span><span>Open DB Analytics</span><span>Parameterised Reports</span><span>Cross-tab &amp; Charts</span></div>
-      </div>
-      <div class="scard ru">
-        <div class="sico">🐳</div>
-        <h4>Tooling</h4>
-        <div class="sitems"><span>Docker</span><span>WildFly</span><span>Maven</span><span>SVN</span><span>WinSCP</span><span>Kafka (learning)</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <section class="segment alt" id="recognition"><div class="wrap"><div class="section-head"><div><div class="kicker">05 / Recognition &amp; Education</div><h2>Recognition backed by delivery.</h2></div><p>Professional awards and academic foundations alongside hands-on enterprise software work.</p></div>
+    <div class="awards"><div class="award"><div class="year">2026 · C-DAC</div><h3>Director General C-DAC Award</h3><p>Excellence in Process and Project Management.</p></div><div class="award"><div class="year">2025 · C-DAC</div><h3>Letter of Appreciation</h3><p>Recognized for contributions to secure application development.</p></div></div>
+    <h3 style="font:700 17px var(--head);margin:38px 0 17px">Education</h3><div class="education-grid"><div class="edu"><div class="year">2022–2024</div><h3>Master of Computer Applications (MCA)</h3><p>Guru Gobind Singh Indraprastha University</p></div><div class="edu"><div class="year">2017–2020</div><h3>B.Sc. Mathematics &amp; Computer Science</h3><p>Jamia Millia Islamia</p></div></div>
+  </div></section>
 
-<!-- PROJECTS -->
-<section class="sec" id="projects">
-  <div class="container">
-    <div class="sec-label"><span class="ltag">03</span> Projects</div>
-    <h2 class="stitle">Selected work.</h2>
-    <div class="pgrid">
-      <!-- Featured -->
-      <div class="pcard pfeat">
-        <div class="pfeat-l">
-          <div class="pnum">01</div>
-          <div class="pctx">C-DAC · Healthcare</div>
-          <h3>Vaccination Recommendation Engine</h3>
-          <p>Rules engine computing vaccine eligibility from birth onward, with automated reminders to beneficiaries and frontline health workers. Powers national immunization schedules for AIIMS deployments.</p>
-          <div class="ptags"><span>Spring Boot</span><span>PostgreSQL</span><span>Scheduler</span><span>Notifications</span><span>REST APIs</span></div>
-        </div>
-        <div class="pfeat-r">
-          <div>
-            <div style="font-family:var(--fm);font-size:11px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px">Impact</div>
-            <div class="pfeat-stats">
-              <div class="pstat-card"><span class="pstat-n">AIIMS</span><span class="pstat-l">production rollout</span></div>
-              <div class="pstat-card"><span class="pstat-n">National</span><span class="pstat-l">scale deployment</span></div>
-              <div class="pstat-card"><span class="pstat-n">30%</span><span class="pstat-l">perf improvement</span></div>
-              <div class="pstat-card"><span class="pstat-n">Govt</span><span class="pstat-l">certified platform</span></div>
-            </div>
-          </div>
-          <p style="font-size:13px;color:var(--t2);line-height:1.7;border-left:2px solid var(--am);padding-left:14px;margin-top:8px">"Largest scope project — full immunization lifecycle from birth through adulthood, with real-time notifications to frontline health workers."</p>
-        </div>
-      </div>
-      <!-- Card 2 -->
-      <div class="pcard ru">
-        <div class="pnum">02</div>
-        <div class="pctx">C-DAC · Analytics</div>
-        <h3>BIRT Reporting Suite</h3>
-        <p>Parameterised BIRT reports surfacing immunisation coverage, eTaal metrics and operational KPIs — consumed daily by AIIMS &amp; government stakeholders.</p>
-        <div class="ptags"><span>BIRT</span><span>SQL</span><span>Cross-tab</span><span>Charts</span><span>eTaal</span></div>
-      </div>
-      <!-- Card 3 -->
-      <div class="pcard ru">
-        <div class="pnum">03</div>
-        <div class="pctx">C-DAC · Application Security</div>
-        <h3>VAPT Hardening Programme</h3>
-        <p>Triaged and remediated 30+ vulnerabilities across authentication, input validation, session and transport layers — OWASP-aligned hardening on live production healthcare systems.</p>
-        <div class="ptags"><span>OWASP</span><span>JWT</span><span>Burp Suite</span><span>Spring Security</span></div>
-        <div class="pmet"><span class="pmbig">30+</span><span class="pmlbl">vulnerabilities closed</span></div>
-      </div>
-      <!-- Card 4 -->
-      <div class="pcard ru" style="display:flex;flex-direction:column">
-        <div class="pnum">04</div>
-        <div class="pctx">Personal Project</div>
-        <h3>Real-Time Chat Application</h3>
-        <p>Room-based messaging over WebSocket/STOMP — low-latency broadcast supporting multiple concurrent users, persisted in PostgreSQL.</p>
-        <div class="ptags"><span>Spring Boot</span><span>WebSocket</span><span>STOMP</span><span>PostgreSQL</span></div>
-        <a href="https://github.com/Zeeshushiekh/portfolio-v2" target="_blank" rel="noopener" class="plink">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="sec sec-dark" id="about">
-  <div class="container">
-    <div class="sec-label"><span class="ltag">04</span> About</div>
-    <h2 class="stitle">The person behind the code.</h2>
-    <div class="agrid">
-      <div class="ru">
-        <div class="atext">
-          <p>I gravitate toward backend problems where correctness, security, and performance meet — vaccination eligibility rules, cross-system reporting, hardening APIs that handle real patient data.</p>
-          <p>Most of my work lives inside C-DAC's healthcare programmes. I've shipped JWT-secured services, scheduler-based data pipelines feeding Open DB analytics, and a library of BIRT reports that hospital administrators rely on day-to-day.</p>
-          <p>Outside engineering: led marketing for a university business club and managed 12+ blood-donation camps with the BloodConnect Foundation — work that taught me how to ship under operational pressure.</p>
-        </div>
-        <div class="edu-h">Education</div>
-        <div class="edu-item"><span class="edu-d">Master of Computer Applications (MCA)</span><span class="edu-s">Guru Gobind Singh Indraprastha University · 2022–2024</span></div>
-        <div class="edu-item"><span class="edu-d">B.Sc. Mathematics &amp; Computer Science</span><span class="edu-s">Jamia Millia Islamia</span></div>
-      </div>
-      <div class="ru">
-        <div class="hlcard">
-          <h4>Highlights</h4>
-          <ul class="hllist">
-            <li><span class="hli">🏆</span><span>Letter of Appreciation from CDAC for security enhancement &amp; timely delivery</span></li>
-            <li><span class="hli">🔐</span><span>Resolved 30+ VAPT findings on production healthcare systems</span></li>
-            <li><span class="hli">⚡</span><span>Up to 30% backend performance improvement via SQL &amp; query tuning</span></li>
-            <li><span class="hli">🧠</span><span>Solved 200+ DSA problems — strong algorithmic fluency</span></li>
-            <li><span class="hli">🩸</span><span>Managed 12+ blood-donation camps as Delhi Camp Manager, BloodConnect Foundation</span></li>
-          </ul>
-        </div>
-        <div class="avail">
-          <div class="avdot"></div>
-          <div><strong>Open to opportunities</strong><p>Senior backend engineering roles — Java, Spring Boot, distributed systems, healthcare or fintech.</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="sec sec-contact" id="contact">
-  <div class="container">
-    <div class="cinner ru">
-      <div class="sec-label"><span class="ltag">05</span> Contact</div>
-      <div class="chd">Let's build something solid.</div>
-      <p class="csub">Open to senior backend engineering roles — Java, Spring Boot, distributed systems, healthcare or fintech.</p>
-      <div class="clinks">
-        <a href="mailto:zeeshannid12@gmail.com" class="citem">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          zeeshannid12@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/mohammad-zeeshan-615b65162" target="_blank" rel="noopener" class="citem">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          linkedin.com/in/mohammad-zeeshan-615b65162
-        </a>
-        <a href="https://github.com/Zeeshushiekh" target="_blank" rel="noopener" class="citem">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          github.com/Zeeshushiekh
-        </a>
-        <a href="tel:+919628995757" class="citem">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 12 19.79 19.79 0 01.88 3.4 2 2 0 012.86 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.06-1.06a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0121 16.02l.92.9z"/></svg>
-          +91 96289 95757 · Noida, India
-        </a>
-      </div>
-      <a href="mailto:zeeshannid12@gmail.com" class="btn-ct">Send me a message <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span class="flogo"><b style="color:var(--am)">&lt;</b>mz<b style="color:var(--am)">/&gt;</b></span>
-  <span class="fcopy">© 2026 Mohammad Zeeshan · Java · Spring Boot · PostgreSQL · BIRT</span>
-  <a href="#hero" class="ftop"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M4 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back to top</a>
-</footer>
-
+  <section class="segment contact" id="contact"><div class="wrap"><div class="contact-panel"><div class="kicker">06 / Let's connect</div><h2>Looking for a Java backend engineer who can own the hard parts?</h2><p>I'm interested in Java Backend Developer and Software Engineer opportunities where I can build dependable services, improve database and API performance, and contribute to well-engineered production systems.</p><div class="contact-actions"><a class="btn primary" href="mailto:zeeshannid12@gmail.com?subject=Java%20Backend%20Developer%20Opportunity">Email me ↗</a><a class="btn secondary" href="assets/Mohammad_Zeeshan_Java_Backend_Resume.pdf" download>Download my resume ↓</a><a class="btn secondary" href="https://www.linkedin.com/in/mohammad-zeeshan-615b65162/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div><div class="contact-meta"><a href="mailto:zeeshannid12@gmail.com">zeeshannid12@gmail.com</a><a href="https://github.com/Zeeshushiekh" target="_blank" rel="noopener noreferrer">github.com/Zeeshushiekh</a><a href="tel:+919628995757">+91 96289 95757</a><span>Noida, India</span></div></div></div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Mohammad Zeeshan · Java Backend Developer</span><span>Built to show real work, not inflated metrics. <a href="#home">Back to top ↑</a></span></div></footer>
 <script>
-// Cursor
-const cur=document.getElementById('cur'),curl=document.getElementById('curl');
-let mx=0,my=0,fx=0,fy=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}
-});
-(function anim(){
-  fx+=(mx-fx)*.11;fy+=(my-fy)*.11;
-  if(curl){curl.style.left=fx+'px';curl.style.top=fy+'px';}
-  requestAnimationFrame(anim);
+(function(){
+  const header = document.getElementById('topbar');
+  const toggle = document.getElementById('menuToggle');
+  const mobile = document.getElementById('mobilemenu');
+  const closeMenu = () => { mobile.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); toggle.textContent='☰'; };
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20), {passive:true});
+  toggle.addEventListener('click', () => { const open = !mobile.classList.contains('open'); mobile.classList.toggle('open',open); toggle.setAttribute('aria-expanded', String(open)); toggle.textContent = open ? '×' : '☰'; });
+  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if(window.innerWidth > 740) closeMenu(); });
 })();
-
-// Nav scroll
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
-
-// Mobile nav
-const tog=document.getElementById('navTog'),mob=document.getElementById('navMob'),cls=document.getElementById('mobClose');
-tog.addEventListener('click',()=>mob.classList.add('open'));
-cls.addEventListener('click',()=>mob.classList.remove('open'));
-mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
-
-// Counter
-function count(el,target,delay){
-  setTimeout(()=>{
-    let v=0,step=Math.max(1,Math.ceil(target/50));
-    const iv=setInterval(()=>{v=Math.min(v+step,target);el.textContent=v;if(v>=target)clearInterval(iv);},28);
-  },delay);
-}
-
-// Intersection observer
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('iv');
-      // stagger children
-      e.target.querySelectorAll('.ru').forEach((el,i)=>{el.style.transitionDelay=(i*0.12)+'s';el.classList.add('iv');});
-      io.unobserve(e.target);
-    }
-  });
-},{threshold:.12});
-
-document.querySelectorAll('.rf,.ru,.rl span').forEach(el=>io.observe(el));
-
-// Hero immediate fire
-setTimeout(()=>{
-  document.querySelectorAll('.hero .rl span').forEach((el,i)=>{
-    setTimeout(()=>el.classList.add('iv'),i*130);
-  });
-  document.querySelectorAll('.hero .rf').forEach((el,i)=>{
-    setTimeout(()=>el.classList.add('iv'),350+i*160);
-  });
-  // counters
-  count(document.getElementById('c1'),2,820);
-  count(document.getElementById('c2'),30,950);
-  count(document.getElementById('c3'),30,1080);
-  count(document.getElementById('c4'),200,1210);
-},80);
 </script>
 </body>
 </html>
